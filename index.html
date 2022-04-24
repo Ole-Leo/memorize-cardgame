@@ -15,22 +15,26 @@
     <title>Card Game</title>
   </head>
   <body>
-    <main class="app">
-      <form action="#" class="start-form">
-        <div class="start-form__title">Выбери сложность</div>
-        <div class="start-form__buttons">
-          <button type="button" class="form-button form-button__difficulty-1">
-            1
-          </button>
-          <button type="button" class="form-button form-button__difficulty-2">
-            2
-          </button>
-          <button type="button" class="form-button form-button__difficulty-3">
-            3
-          </button>
-        </div>
-        <button class="start-form__start-button">Старт</button>
-      </form>
-    </main>
+    <main class="app"></main>
+    <script>
+      const app = document.querySelector('.app');
+      window.application = {
+        blocks: {},
+        screens: {},
+        renderScreen: function (screenName) {
+          window.application.screens[screenName]();
+        },
+        renderBlock: function (blockName, container, additional = '') {
+          window.application.blocks[blockName](container, additional);
+        },
+        difficulty: '',
+        timers: [],
+      };
+    </script>
+    <script src="scripts/template-engine.js"></script>
+    <script src="scripts/start-screen.js"></script>
+    <script src="scripts/difficulty1-screen.js"></script>
+    <script src="scripts/difficulty2-screen.js"></script>
+    <script src="scripts/difficulty3-screen.js"></script>
   </body>
 </html>
