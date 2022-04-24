@@ -25,7 +25,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 4.8rem;
-  padding: 4.8rem;
+  padding: 4.8rem 5.2rem 3.6rem;
   background-color: #c2f5ff;
   border-radius: 12px;
 }
@@ -52,8 +52,13 @@ body {
   font-size: 6.4rem;
   line-height: 7.2rem;
   font-family: inherit;
-  border-radius: 12px;
+  cursor: pointer;
   border: none;
+  border-radius: 12px;
+}
+
+.button-onclick {
+  border: 3px solid #0080c1;
 }
 
 .start-form__start-button {
@@ -63,6 +68,28 @@ body {
   line-height: 3.2rem;
   color: #ffffff;
   background-color: #7ac100;
-  border-radius: 12px;
+  cursor: pointer;
   border: none;
+  border-radius: 12px;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.error-text {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  text-align: center;
+  color: red;
+}
+
+.temporary {
+  padding: 1rem 2rem;
+  font-size: 2.4rem;
+  color: #ffffff;
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 50rem;
+  cursor: pointer;
 }
