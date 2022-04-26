@@ -9,15 +9,20 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
-.app {
+.main {
   height: 100vh;
+
   background-color: #004980;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.app {
+  max-width: 103.5rem;
 }
 
 .start-form {
@@ -61,8 +66,9 @@ body {
   border: 3px solid #0080c1;
 }
 
-.start-form__start-button {
-  padding: 8px 88px;
+.start-button {
+  width: 24.6rem;
+  padding: 8px;
   font-family: inherit;
   font-size: 2.4rem;
   line-height: 3.2rem;
@@ -91,5 +97,53 @@ body {
   background-color: transparent;
   border: 2px solid #ffffff;
   border-radius: 50rem;
+  cursor: pointer;
+}
+
+/*********************************************/
+
+.cards-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header {
+  margin-bottom: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.time-in-game {
+  color: #ffffff;
+}
+
+.timer {
+  position: relative;
+  font-size: 6.4rem;
+  line-height: 7.2rem;
+}
+
+.timer::before {
+  content: 'min';
+  position: absolute;
+  top: -16px;
+  left: 40px;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+}
+
+.timer::after {
+  content: 'sek';
+  position: absolute;
+  top: -16px;
+  right: 5px;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+}
+
+.card {
   cursor: pointer;
 }
