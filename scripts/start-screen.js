@@ -46,7 +46,7 @@ function startFormEngine() {
         content: [
           {
             tag: 'button',
-            cls: 'start-form__start-button',
+            cls: ['start-form', 'start-button'],
             content: 'Старт',
           },
           {
