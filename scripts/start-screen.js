@@ -87,9 +87,7 @@ function renderStartScreen() {
       error.classList.remove('hidden');
     } else {
       error.classList.add('hidden');
-      window.application.renderScreen(
-        `difficulty${window.application.difficulty}`
-      );
+      window.application.renderScreen('game');
     }
   }
 
