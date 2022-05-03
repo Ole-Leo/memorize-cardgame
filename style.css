@@ -14,7 +14,6 @@ body {
 
 .main {
   height: 100vh;
-
   background-color: #004980;
   display: flex;
   justify-content: center;
@@ -22,7 +21,7 @@ body {
 }
 
 .app {
-  max-width: 103.5rem;
+  max-width: 70rem;
 }
 
 .start-form {
@@ -102,14 +101,8 @@ body {
 
 /*********************************************/
 
-.cards-area {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-
 .header {
+  width: 70rem;
   margin-bottom: 3.5rem;
   display: flex;
   align-items: center;
@@ -144,6 +137,46 @@ body {
   line-height: 3.2rem;
 }
 
+.cards-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  perspective: 1000px;
+}
+
 .card {
+  position: relative;
   cursor: pointer;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card:active {
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+
+.back-img {
+  position: absolute;
+  transform: translateX(-100%);
+  opacity: 0;
+  backface-visibility: hidden;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.rotate {
+  transform: rotateY(180deg);
+}
+
+.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.default {
+  pointer-events: none;
 }
