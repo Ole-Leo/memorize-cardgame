@@ -166,17 +166,10 @@ body {
 }
 
 .visible {
+  transition: opacity 0.4s ease;
   opacity: 1;
-}
-
-.rotate {
-  transform: rotateY(180deg);
 }
 
 .is-flipped {
   transform: rotateY(180deg);
-}
-
-.default {
-  pointer-events: none;
 }
