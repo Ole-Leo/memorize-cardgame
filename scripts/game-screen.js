@@ -31,20 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardArea = document.createElement('div');
     cardArea.classList.add('cards-area');
 
-    const shuffledCards = cardsList.sort(() => 0.5 - Math.random());
+    const shuffledCards = shuffleCards(cardsList);
+
     const selectedCards = shuffledCards.slice(
       0,
       3 * window.application.difficulty
     );
-    const doubleSelectedCards = [];
-    doubleSelectedCards.push(...selectedCards, ...selectedCards);
-    const doubleshuffledCards = doubleSelectedCards.sort(
-      () => 0.5 - Math.random()
-    );
+
+    const pairCards = generatePairCards(selectedCards, selectedCards);
+    const shuffledPairCards = shuffleCards(pairCards);
 
     window.application.shuffledCards = [];
 
-    doubleshuffledCards.forEach(card => {
+    shuffledPairCards.forEach(card => {
       window.application.shuffledCards.push(card.name);
       window.application.shuffledCards.sort();
       cardArea.appendChild(templateEngine(cardEngineTemplate(card)));
@@ -93,45 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const backFaceCards = document.querySelectorAll('.back-img');
     window.application.userSelectedCards = [];
 
-    currentCards.forEach(currentCard => {
-      currentCard.classList.add('default');
-    });
-
-    const preGameTimer = setTimeout(() => {
-      currentCards.forEach(currentCard => {
-        currentCard.classList.remove('default');
-      });
-
-      backFaceCards.forEach(backFaceCard => {
-        backFaceCard.classList.add('visible');
-      });
-
-      frontFaceCards.forEach(frontFaceCard => {
-        frontFaceCard.classList.add('rotate');
-      });
-    }, 5000);
-
-    window.application.timers.push(preGameTimer);
-
     let hasFlippedCard = false;
     let firstCard, secondCard;
 
-    function equalArrays(arr1, arr2) {
-      if (arr1.length != arr2.length) {
-        return;
-      }
-
-      for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) {
-          return;
-        }
-      }
-      setTimeout(() => {
-        alert('Win');
-      }, 300);
-    }
-
     function flipCard(event) {
+      frontFaceCards.forEach(frontFaceCard => {
+        frontFaceCard.classList.add('is-flipped');
+      });
+
       const target = event.currentTarget;
       target.classList.toggle('is-flipped');
       if (!hasFlippedCard) {
@@ -157,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      unflipCards();
+      unflippedCards();
     }
 
     function guessedCards() {
@@ -172,16 +140,24 @@ document.addEventListener('DOMContentLoaded', () => {
       window.application.userSelectedCards.sort();
     }
 
-    function unflipCards() {
+    function unflippedCards() {
       setTimeout(() => {
         firstCard.classList.remove('is-flipped');
         secondCard.classList.remove('is-flipped');
       }, 400);
     }
 
-    currentCards.forEach(currentCard => {
-      currentCard.addEventListener('click', flipCard);
-    });
+    const preGameTimer = setTimeout(() => {
+      backFaceCards.forEach(backFaceCard => {
+        backFaceCard.classList.add('visible');
+      });
+
+      currentCards.forEach(currentCard => {
+        currentCard.addEventListener('click', flipCard);
+      });
+    }, 2000);
+
+    window.application.timers.push(preGameTimer);
   }
 
   window.application.screens.game = renderGameScreen;
