@@ -7,7 +7,7 @@ function generatePairCards(...arguments) {
   return shuffleCards(newArr.flat(Infinity));
 }
 
-function equalArrays(arr1, arr2) {
+function matchForWin(arr1, arr2) {
   if (arr1.length != arr2.length) {
     return;
   }
@@ -17,7 +17,12 @@ function equalArrays(arr1, arr2) {
       return;
     }
   }
+
+  window.application.timers.forEach(timer => {
+    clearInterval(timer);
+  });
+
   setTimeout(() => {
-    alert('Win');
-  }, 250);
+    window.application.renderScreen('winScreen');
+  }, 350);
 }

@@ -19,7 +19,6 @@
       <div class="app"></div>
     </main>
     <script>
-      const app = document.querySelector('.app');
       window.application = {
         blocks: {},
         screens: {},
@@ -32,11 +31,13 @@
         difficulty: '',
         timers: [],
       };
+      const app = document.querySelector('.app');
     </script>
     <script src="scripts/template-engine.js"></script>
     <script src="scripts/cards-list.js"></script>
     <script src="scripts/additional.js"></script>
     <script src="scripts/start-screen.js"></script>
     <script src="scripts/game-screen.js"></script>
+    <script src="scripts/win-screen.js"></script>
   </body>
 </html>
