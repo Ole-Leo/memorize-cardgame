@@ -52,6 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(cardArea);
   }
 
+  function renderStartAgainBtn(container, text) {
+    const startAgainBtn = document.createElement('button');
+    startAgainBtn.classList.add('start-button');
+    startAgainBtn.textContent = text;
+
+    startAgainBtn.addEventListener('click', () => {
+      window.application.difficulty = '';
+      window.application.renderScreen('startForm');
+    });
+
+    container.appendChild(startAgainBtn);
+  }
+
+  window.application.blocks.startAgainBtn = renderStartAgainBtn;
+
   function renderGameHeader(container) {
     const gameHeader = document.createElement('header');
     gameHeader.classList.add('header');
@@ -63,18 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     timer.classList.add('timer');
     timer.textContent = '00:00';
 
-    const startAgainBtn = document.createElement('button');
-    startAgainBtn.classList.add('start-button');
-    startAgainBtn.textContent = 'Начать заново';
-
-    startAgainBtn.addEventListener('click', () => {
-      window.application.difficulty = '';
-      window.application.renderScreen('startForm');
-    });
-
     inGameTime.appendChild(timer);
     gameHeader.appendChild(inGameTime);
-    gameHeader.appendChild(startAgainBtn);
+    window.application.renderBlock(
+      'startAgainBtn',
+      gameHeader,
+      'Начать заново'
+    );
     container.appendChild(gameHeader);
   }
 
@@ -90,10 +100,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentCards = document.querySelectorAll('.card');
     const frontFaceCards = document.querySelectorAll('.front-img');
     const backFaceCards = document.querySelectorAll('.back-img');
+    const timer = document.querySelector('.timer');
     window.application.userSelectedCards = [];
 
     let hasFlippedCard = false;
     let firstCard, secondCard;
+
+    function stopwatch() {
+      let sec = 0;
+      let min = 0;
+
+      function timeChange() {
+        sec++;
+        if (sec > 59) {
+          sec = 0;
+          min++;
+        }
+        timer.textContent = `${min > 9 ? min : '0' + min}:${
+          sec > 9 ? sec : '0' + sec
+        }`;
+
+        window.application.finalTime = timer.textContent;
+      }
+
+      const interval = setInterval(timeChange, 1000);
+      window.application.timers.push(interval);
+    }
 
     function flipCard(event) {
       frontFaceCards.forEach(frontFaceCard => {
@@ -113,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       checkForMatch();
 
-      equalArrays(
+      matchForWin(
         window.application.shuffledCards,
         window.application.userSelectedCards
       );
@@ -152,12 +184,12 @@ document.addEventListener('DOMContentLoaded', () => {
         backFaceCard.classList.add('visible');
       });
 
+      stopwatch();
+
       currentCards.forEach(currentCard => {
         currentCard.addEventListener('click', flipCard);
       });
-    }, 2000);
-
-    window.application.timers.push(preGameTimer);
+    }, 3000);
   }
 
   window.application.screens.game = renderGameScreen;

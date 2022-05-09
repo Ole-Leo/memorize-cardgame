@@ -4,8 +4,8 @@ function startFormEngine() {
     cls: 'start-form',
     content: [
       {
-        tag: 'div',
-        cls: 'start-form__title',
+        tag: 'h1',
+        cls: ['start-form__title', 'title'],
         content: 'Выбери сложность',
       },
       {
