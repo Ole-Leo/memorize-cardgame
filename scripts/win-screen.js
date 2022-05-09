@@ -6,7 +6,7 @@ function renderWinScreen() {
   overlay.classList.add('overlay');
 
   const winImg = document.createElement('img');
-  winImg.setAttribute('src', '../img/win-image.svg');
+  winImg.setAttribute('src', 'img/win-image.svg');
   winImg.classList.add('win-form__img');
 
   const winText = document.createElement('h1');
