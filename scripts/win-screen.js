@@ -1,4 +1,6 @@
-function renderWinScreen() {
+import { app } from '../index';
+
+export function renderWinScreen() {
   const winForm = document.createElement('div');
   winForm.classList.add('win-form');
 
@@ -29,5 +31,3 @@ function renderWinScreen() {
   app.appendChild(winForm);
   app.appendChild(overlay);
 }
-
-window.application.screens.winScreen = renderWinScreen;
