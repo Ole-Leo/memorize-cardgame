@@ -1,3 +1,9 @@
+import { templateEngine } from './template-engine';
+import { app } from '../index';
+import { cards } from './cards-list';
+import { generatePairCards, matchForWin } from './additional';
+import { shuffle } from 'lodash';
+
 const cardsList = JSON.parse(cards);
 
 function cardEngineTemplate(card) {
@@ -30,7 +36,7 @@ function renderCardArea(container) {
   const cardArea = document.createElement('div');
   cardArea.classList.add('cards-area');
 
-  const shuffledCards = shuffleCards(cardsList);
+  const shuffledCards = shuffle(cardsList);
 
   const selectedCards = shuffledCards.slice(
     0,
@@ -38,13 +44,12 @@ function renderCardArea(container) {
   );
 
   const pairCards = generatePairCards(selectedCards, selectedCards);
-  const shuffledPairCards = shuffleCards(pairCards);
+  const shuffledPairCards = shuffle(pairCards);
 
   window.application.shuffledCards = [];
 
   shuffledPairCards.forEach(card => {
     window.application.shuffledCards.push(card.name);
-    window.application.shuffledCards.sort();
     cardArea.appendChild(templateEngine(cardEngineTemplate(card)));
   });
 
@@ -58,13 +63,14 @@ function renderStartAgainBtn(container, text) {
 
   startAgainBtn.addEventListener('click', () => {
     window.application.difficulty = '';
+    window.application.timers.forEach(timer => {
+      clearInterval(timer);
+    });
     window.application.renderScreen('startForm');
   });
 
   container.appendChild(startAgainBtn);
 }
-
-window.application.blocks.startAgainBtn = renderStartAgainBtn;
 
 function renderGameHeader(container) {
   const gameHeader = document.createElement('header');
@@ -83,10 +89,7 @@ function renderGameHeader(container) {
   container.appendChild(gameHeader);
 }
 
-window.application.blocks.gameHeader = renderGameHeader;
-window.application.blocks.cardArea = renderCardArea;
-
-function renderGameScreen() {
+export function renderGameScreen() {
   app.textContent = '';
 
   window.application.renderBlock('gameHeader', app);
@@ -163,8 +166,6 @@ function renderGameScreen() {
       firstCard.dataset.card,
       secondCard.dataset.card
     );
-
-    window.application.userSelectedCards.sort();
   }
 
   function unflippedCards() {
@@ -174,7 +175,7 @@ function renderGameScreen() {
     }, 400);
   }
 
-  const preGameTimer = setTimeout(() => {
+  setTimeout(() => {
     backFaceCards.forEach(backFaceCard => {
       backFaceCard.classList.add('visible');
     });
@@ -187,4 +188,8 @@ function renderGameScreen() {
   }, 3000);
 }
 
-window.application.screens.game = renderGameScreen;
+export function exportBlocks() {
+  window.application.blocks.startAgainBtn = renderStartAgainBtn;
+  window.application.blocks.gameHeader = renderGameHeader;
+  window.application.blocks.cardArea = renderCardArea;
+}

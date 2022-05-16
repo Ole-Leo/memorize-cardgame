@@ -1,3 +1,8 @@
+import { templateEngine } from './template-engine';
+import { app } from '../index';
+import { renderGameScreen } from './game-screen';
+import { exportScreen } from './additional';
+
 function startFormEngine() {
   return {
     tag: 'form',
@@ -60,7 +65,7 @@ function startFormEngine() {
   };
 }
 
-function renderStartScreen() {
+export function renderStartScreen() {
   app.textContent = '';
 
   app.appendChild(templateEngine(startFormEngine()));
@@ -87,12 +92,10 @@ function renderStartScreen() {
       error.classList.remove('hidden');
     } else {
       error.classList.add('hidden');
+      exportScreen('game', renderGameScreen);
       window.application.renderScreen('game');
     }
   }
 
   startForm.addEventListener('submit', startGame);
 }
-
-window.application.screens.startForm = renderStartScreen;
-window.application.renderScreen('startForm');
