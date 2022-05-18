@@ -7,7 +7,8 @@ export function generatePairCards() {
 }
 
 export function matchForWin(shuffleCards, userCards) {
-  if (isEqual(sortBy(shuffleCards), sortBy(userCards))) {
+  const cardsEquality = isEqual(sortBy(shuffleCards), sortBy(userCards));
+  if (cardsEquality) {
     setTimeout(() => {
       exportScreen('winScreen', renderWinScreen);
       window.application.renderScreen('winScreen');
