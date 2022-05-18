@@ -8,14 +8,14 @@ export const app = document.querySelector('.app');
 window.application = {
   blocks: {},
   screens: {},
+  difficulty: '',
+  timers: [],
   renderScreen: function (screenName) {
     window.application.screens[screenName]();
   },
   renderBlock: function (blockName, container, additional = '') {
     window.application.blocks[blockName](container, additional);
   },
-  difficulty: '',
-  timers: [],
 };
 
 exportScreen('startForm', renderStartScreen);

@@ -4,8 +4,6 @@ import { cards } from './cards-list';
 import { generatePairCards, matchForWin } from './additional';
 import { shuffle } from 'lodash';
 
-const cardsList = JSON.parse(cards);
-
 function cardEngineTemplate(card) {
   return {
     tag: 'article',
@@ -36,7 +34,7 @@ function renderCardArea(container) {
   const cardArea = document.createElement('div');
   cardArea.classList.add('cards-area');
 
-  const shuffledCards = shuffle(cardsList);
+  const shuffledCards = shuffle(cards);
 
   const selectedCards = shuffledCards.slice(
     0,
