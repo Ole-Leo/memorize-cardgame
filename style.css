@@ -54,7 +54,7 @@ body {
   height: 9.8rem;
   width: 9.8rem;
   color: #0080c1;
-  background-color: #ffffff;
+  background-color: #fff;
   font-size: 6.4rem;
   line-height: 7.2rem;
   font-family: inherit;
@@ -73,7 +73,7 @@ body {
   font-family: inherit;
   font-size: 2.4rem;
   line-height: 3.2rem;
-  color: #ffffff;
+  color: #fff;
   background-color: #7ac100;
   cursor: pointer;
   border: none;
@@ -94,14 +94,14 @@ body {
 .temporary {
   padding: 1rem 2rem;
   font-size: 2.4rem;
-  color: #ffffff;
+  color: #fff;
   background-color: transparent;
-  border: 2px solid #ffffff;
+  border: 2px solid #fff;
   border-radius: 50rem;
   cursor: pointer;
 }
 
-/*********************************************/
+/* game */
 
 .header {
   width: 70rem;
@@ -112,7 +112,7 @@ body {
 }
 
 .time-in-game {
-  color: #ffffff;
+  color: #fff;
 }
 
 .timer {
@@ -176,7 +176,7 @@ body {
   transform: rotateY(180deg);
 }
 
-/*********************************************/
+/* win */
 
 .overlay {
   position: absolute;
@@ -185,6 +185,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 66, 115, 0.5);
+
   /* backdrop-filter: blur(1px); */
   z-index: 5;
 }

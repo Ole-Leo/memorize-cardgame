@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-prettier/recommended"
+  ],
+  "rules": {
+    "font-family-name-quotes": "always-unless-keyword",
+    "color-no-invalid-hex": true,
+    "comment-no-empty": true,
+    "comment-empty-line-before": "always",
+    "selector-class-pattern": "^[a-z][a-zA-Z0-9_-]+$",
+    "selector-id-pattern": "^[a-z][a-zA-Z0-9_-]+$",
+    "color-function-notation": "legacy",
+    "alpha-value-notation": null
+  }
+}
