@@ -4,8 +4,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
+const mode =
+  process.env.NODE_ENV === 'production' ? 'production' : 'development';
+
 module.exports = {
-  mode: 'development',
+  mode,
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -25,6 +28,8 @@ module.exports = {
       },
     ],
   },
+  devtool:
+    process.env.NODE_ENV === 'production' ? 'hidden-source-map' : 'source-map',
   plugins: [
     new MiniCssExtractPlugin(),
     new CopyPlugin({
