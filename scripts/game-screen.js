@@ -44,10 +44,10 @@ function renderCardArea(container) {
   const pairCards = generatePairCards(selectedCards, selectedCards);
   const shuffledPairCards = shuffle(pairCards);
 
-  window.application.shuffledCards = [];
+  window.application.shuffleCards = [];
 
   shuffledPairCards.forEach(card => {
-    window.application.shuffledCards.push(card.name);
+    window.application.shuffleCards.push(card.name);
     cardArea.appendChild(templateEngine(cardEngineTemplate(card)));
   });
 
@@ -123,6 +123,8 @@ export function renderGameScreen() {
     window.application.timers.push(interval);
   }
 
+  stopwatch();
+
   function flipCard(event) {
     frontFaceCards.forEach(frontFaceCard => {
       frontFaceCard.classList.add('is-flipped');
@@ -142,7 +144,7 @@ export function renderGameScreen() {
     checkForMatch();
 
     matchForWin(
-      window.application.shuffledCards,
+      window.application.shuffleCards,
       window.application.userSelectedCards
     );
   }
@@ -177,8 +179,6 @@ export function renderGameScreen() {
     backFaceCards.forEach(backFaceCard => {
       backFaceCard.classList.add('visible');
     });
-
-    stopwatch();
 
     currentCards.forEach(currentCard => {
       currentCard.addEventListener('click', flipCard);

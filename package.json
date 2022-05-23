@@ -11,7 +11,8 @@
     "lint:css": "stylelint **/*.css",
     "lint": "npm run lint:js && npm run lint:css",
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "cross-env NODE_ENV=development webpack && webpack-dev-server --open"
+    "dev": "cross-env NODE_ENV=development webpack",
+    "start": "webpack-dev-server --open"
   },
   "repository": {
     "type": "git",

@@ -9,6 +9,9 @@ export function generatePairCards() {
 export function matchForWin(shuffleCards, userCards) {
   const cardsEquality = isEqual(sortBy(shuffleCards), sortBy(userCards));
   if (cardsEquality) {
+    window.application.timers.forEach(timer => {
+      clearInterval(timer);
+    });
     setTimeout(() => {
       exportScreen('winScreen', renderWinScreen);
       window.application.renderScreen('winScreen');
