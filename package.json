@@ -9,7 +9,8 @@
     "format": "prettier --write . && stylelint **/*.css --fix",
     "lint:js": "eslint scripts/**/*.{js,ts}",
     "lint:css": "stylelint **/*.css",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint:ts": "tsc --noEmit",
+    "lint": "npm run lint:ts && npm run lint:js && npm run lint:css",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "cross-env NODE_ENV=development webpack",
     "start": "webpack-dev-server --open"
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/Ole-Leo/skyPro-cardgame#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.182",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
@@ -40,6 +42,8 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-prettier": "^2.0.0",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.2",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
