@@ -1,10 +1,20 @@
-import { templateEngine } from './template-engine';
-import { app } from '../index';
-import { cards } from './cards-list';
-import { generatePairCards, matchForWin } from './additional';
+import { app } from './start-screen';
 import { shuffle } from 'lodash';
+import { cards } from './cards-list';
+import { templateEngine } from './template-engine';
+import { renderStartScreen } from './start-screen';
+import {
+  cardExample,
+  stopwatch,
+  generatePairCards,
+  matchForWin,
+} from './additional';
 
-function cardEngineTemplate(card) {
+function cardEngineTemplate(card: {
+  name: string;
+  'front-img'?: string;
+  'back-img'?: string;
+}) {
   return {
     tag: 'article',
     cls: 'card',
@@ -30,21 +40,22 @@ function cardEngineTemplate(card) {
   };
 }
 
-function renderCardArea(container) {
-  const cardArea = document.createElement('div');
+function renderCardArea(container: HTMLElement) {
+  const cardArea = document.createElement('div')!;
   cardArea.classList.add('cards-area');
 
-  const shuffledCards = shuffle(cards);
+  const shuffledCards: cardExample = shuffle(cards);
 
-  const selectedCards = shuffledCards.slice(
+  const selectedCards: cardExample = shuffledCards.slice(
     0,
-    3 * window.application.difficulty
+    Number(window.application.difficulty) * 3
   );
 
-  const pairCards = generatePairCards(selectedCards, selectedCards);
-  const shuffledPairCards = shuffle(pairCards);
-
-  window.application.shuffleCards = [];
+  const pairCards: cardExample = generatePairCards(
+    selectedCards,
+    selectedCards
+  );
+  const shuffledPairCards: cardExample = shuffle(pairCards);
 
   shuffledPairCards.forEach(card => {
     window.application.shuffleCards.push(card.name);
@@ -54,23 +65,24 @@ function renderCardArea(container) {
   container.appendChild(cardArea);
 }
 
-function renderStartAgainBtn(container, text) {
+export function renderStartAgainBtn(container: HTMLElement, text: string) {
   const startAgainBtn = document.createElement('button');
   startAgainBtn.classList.add('start-button');
   startAgainBtn.textContent = text;
 
   startAgainBtn.addEventListener('click', () => {
+    window.clearInterval(window.application.timers);
+    window.application.finalTime = '';
     window.application.difficulty = '';
-    window.application.timers.forEach(timer => {
-      clearInterval(timer);
-    });
-    window.application.renderScreen('startForm');
+    window.application.shuffleCards = [];
+    window.application.userSelectedCards = [];
+    renderStartScreen();
   });
 
   container.appendChild(startAgainBtn);
 }
 
-function renderGameHeader(container) {
+function renderGameHeader(container: HTMLElement) {
   const gameHeader = document.createElement('header');
   gameHeader.classList.add('header');
 
@@ -83,54 +95,31 @@ function renderGameHeader(container) {
 
   inGameTime.appendChild(timer);
   gameHeader.appendChild(inGameTime);
-  window.application.renderBlock('startAgainBtn', gameHeader, 'Начать заново');
+  renderStartAgainBtn(gameHeader, 'Начать заново');
   container.appendChild(gameHeader);
 }
 
 export function renderGameScreen() {
   app.textContent = '';
-
-  window.application.renderBlock('gameHeader', app);
-  window.application.renderBlock('cardArea', app);
+  renderGameHeader(app);
+  renderCardArea(app);
 
   const currentCards = document.querySelectorAll('.card');
   const frontFaceCards = document.querySelectorAll('.front-img');
   const backFaceCards = document.querySelectorAll('.back-img');
-  const timer = document.querySelector('.timer');
-  window.application.userSelectedCards = [];
+  const timer = document.querySelector('.timer') as HTMLElement;
 
-  let hasFlippedCard = false;
-  let firstCard, secondCard;
+  let hasFlippedCard: boolean = false;
+  let firstCard: HTMLElement, secondCard: HTMLElement;
 
-  function stopwatch() {
-    let sec = 0;
-    let min = 0;
+  stopwatch(timer);
 
-    function timeChange() {
-      sec++;
-      if (sec > 59) {
-        sec = 0;
-        min++;
-      }
-      timer.textContent = `${min > 9 ? min : '0' + min}:${
-        sec > 9 ? sec : '0' + sec
-      }`;
-
-      window.application.finalTime = timer.textContent;
-    }
-
-    const interval = setInterval(timeChange, 1000);
-    window.application.timers.push(interval);
-  }
-
-  stopwatch();
-
-  function flipCard(event) {
+  function flipCard(event: Event) {
     frontFaceCards.forEach(frontFaceCard => {
       frontFaceCard.classList.add('is-flipped');
     });
 
-    const target = event.currentTarget;
+    const target = event.currentTarget as HTMLElement;
     target.classList.toggle('is-flipped');
     if (!hasFlippedCard) {
       hasFlippedCard = true;
@@ -163,8 +152,8 @@ export function renderGameScreen() {
     secondCard.removeEventListener('click', flipCard);
 
     window.application.userSelectedCards.push(
-      firstCard.dataset.card,
-      secondCard.dataset.card
+      firstCard.dataset.card as string,
+      secondCard.dataset.card as string
     );
   }
 
@@ -184,10 +173,4 @@ export function renderGameScreen() {
       currentCard.addEventListener('click', flipCard);
     });
   }, 3000);
-}
-
-export function exportBlocks() {
-  window.application.blocks.startAgainBtn = renderStartAgainBtn;
-  window.application.blocks.gameHeader = renderGameHeader;
-  window.application.blocks.cardArea = renderCardArea;
 }

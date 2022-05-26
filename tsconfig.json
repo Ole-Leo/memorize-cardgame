@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "strict": true,
-    "noImplicitAny": true,
     "outDir": "./dist/",
     "target": "ESNext",
     "module": "ES6",

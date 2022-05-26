@@ -10,7 +10,7 @@
     "lint:js": "eslint scripts/**/*.{js,ts}",
     "lint:css": "stylelint **/*.css",
     "lint:ts": "tsc --noEmit",
-    "lint": "npm run lint:ts && npm run lint:js && npm run lint:css",
+    "lint": "npm run lint:ts && npm run lint:css",
     "build": "cross-env NODE_ENV=production webpack",
     "dev": "cross-env NODE_ENV=development webpack",
     "start": "webpack-dev-server --open"

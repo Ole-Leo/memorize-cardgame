@@ -1,7 +1,8 @@
-const cardImgPath = 'img/card-img/';
-const backsideCardImgPath = 'img/back-side-card.png';
+import { cardExample } from './additional';
+const cardImgPath: string = 'img/card-img/';
+const backsideCardImgPath: string = 'img/back-side-card.png';
 
-export const cards = [
+export const cards: cardExample = [
   {
     name: '6_clubs',
     'front-img': cardImgPath + '6_clubs.png',

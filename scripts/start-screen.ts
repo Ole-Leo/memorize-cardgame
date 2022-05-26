@@ -1,7 +1,7 @@
 import { templateEngine } from './template-engine';
-import { app } from '../index';
 import { renderGameScreen } from './game-screen';
-import { exportScreen } from './additional';
+
+export const app = document.querySelector('.app') as HTMLDivElement;
 
 function startFormEngine() {
   return {
@@ -70,14 +70,16 @@ export function renderStartScreen() {
 
   app.appendChild(templateEngine(startFormEngine()));
 
-  const startForm = document.querySelector('.start-form');
-  const difficultyBtns = startForm.querySelectorAll('.form-button');
-  const error = startForm.querySelector('.error-text');
+  const startForm = document.querySelector('.start-form') as HTMLFormElement;
+  const difficultyBtns = startForm.querySelectorAll(
+    '.form-button'
+  ) as NodeListOf<HTMLButtonElement>;
+  const error = startForm.querySelector('.error-text') as HTMLParagraphElement;
 
   difficultyBtns.forEach(difficultyBtn => {
     difficultyBtn.addEventListener('click', event => {
-      const target = event.target;
-      window.application.difficulty = target.dataset.lvl;
+      const target = event.target as HTMLElement;
+      window.application.difficulty = target.dataset.lvl as string;
 
       difficultyBtns.forEach(difficultyBtn => {
         difficultyBtn.classList.remove('button-onclick');
@@ -86,14 +88,13 @@ export function renderStartScreen() {
     });
   });
 
-  function startGame(event) {
+  function startGame(event: Event) {
     event.preventDefault();
     if (!window.application.difficulty) {
       error.classList.remove('hidden');
     } else {
       error.classList.add('hidden');
-      exportScreen('game', renderGameScreen);
-      window.application.renderScreen('game');
+      renderGameScreen();
     }
   }
 
