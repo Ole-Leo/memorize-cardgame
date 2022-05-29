@@ -1,7 +1,7 @@
 import { templateEngine } from './template-engine';
 import { renderGameScreen } from './game-screen';
 
-export const app = document.querySelector('.app') as HTMLDivElement;
+export const app: HTMLDivElement = document.querySelector('.app')!;
 
 function startFormEngine() {
   return {
@@ -70,16 +70,15 @@ export function renderStartScreen() {
 
   app.appendChild(templateEngine(startFormEngine()));
 
-  const startForm = document.querySelector('.start-form') as HTMLFormElement;
-  const difficultyBtns = startForm.querySelectorAll(
-    '.form-button'
-  ) as NodeListOf<HTMLButtonElement>;
-  const error = startForm.querySelector('.error-text') as HTMLParagraphElement;
+  const startForm: HTMLFormElement = document.querySelector('.start-form')!;
+  const difficultyBtns: NodeListOf<HTMLButtonElement> =
+    startForm.querySelectorAll('.form-button');
+  const error: HTMLParagraphElement = startForm.querySelector('.error-text')!;
 
   difficultyBtns.forEach(difficultyBtn => {
     difficultyBtn.addEventListener('click', event => {
       const target = event.target as HTMLElement;
-      window.application.difficulty = target.dataset.lvl as string;
+      window.application.difficulty = String(target.dataset.lvl);
 
       difficultyBtns.forEach(difficultyBtn => {
         difficultyBtn.classList.remove('button-onclick');

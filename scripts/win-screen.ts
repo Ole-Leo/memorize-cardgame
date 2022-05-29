@@ -22,7 +22,7 @@ export function renderWinScreen() {
 
   const finalTime = document.createElement('p');
   finalTime.classList.add('win-form__time');
-  finalTime.textContent = window.application.finalTime as string;
+  finalTime.textContent = window.application.finalTime;
 
   winForm.appendChild<HTMLImageElement>(winImg);
   winForm.appendChild<HTMLHeadingElement>(winText);

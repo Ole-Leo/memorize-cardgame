@@ -4,7 +4,7 @@ import { cards } from './cards-list';
 import { templateEngine } from './template-engine';
 import { renderStartScreen } from './start-screen';
 import {
-  cardExample,
+  CardsArray,
   stopwatch,
   generatePairCards,
   matchForWin,
@@ -44,18 +44,15 @@ function renderCardArea(container: HTMLElement) {
   const cardArea = document.createElement('div')!;
   cardArea.classList.add('cards-area');
 
-  const shuffledCards: cardExample = shuffle(cards);
+  const shuffledCards: CardsArray = shuffle(cards);
 
-  const selectedCards: cardExample = shuffledCards.slice(
+  const selectedCards: CardsArray = shuffledCards.slice(
     0,
     Number(window.application.difficulty) * 3
   );
 
-  const pairCards: cardExample = generatePairCards(
-    selectedCards,
-    selectedCards
-  );
-  const shuffledPairCards: cardExample = shuffle(pairCards);
+  const pairCards: CardsArray = generatePairCards(selectedCards, selectedCards);
+  const shuffledPairCards: CardsArray = shuffle(pairCards);
 
   shuffledPairCards.forEach(card => {
     window.application.shuffleCards.push(card.name);
@@ -107,7 +104,7 @@ export function renderGameScreen() {
   const currentCards = document.querySelectorAll('.card');
   const frontFaceCards = document.querySelectorAll('.front-img');
   const backFaceCards = document.querySelectorAll('.back-img');
-  const timer = document.querySelector('.timer') as HTMLElement;
+  const timer: HTMLElement = document.querySelector('.timer')!;
 
   let hasFlippedCard: boolean = false;
   let firstCard: HTMLElement, secondCard: HTMLElement;
@@ -152,8 +149,8 @@ export function renderGameScreen() {
     secondCard.removeEventListener('click', flipCard);
 
     window.application.userSelectedCards.push(
-      firstCard.dataset.card as string,
-      secondCard.dataset.card as string
+      String(firstCard.dataset.card),
+      String(secondCard.dataset.card)
     );
   }
 

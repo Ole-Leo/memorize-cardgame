@@ -1,9 +1,9 @@
 import './style.css';
 import { renderStartScreen } from './scripts/start-screen';
 
-interface gameApplication {
+interface GameApplication {
   difficulty: number | string;
-  timers: number | undefined;
+  timers?: number;
   shuffleCards: string[];
   userSelectedCards: string[];
   finalTime: string;
@@ -11,15 +11,12 @@ interface gameApplication {
 
 declare global {
   interface Window {
-    application: gameApplication;
+    application: GameApplication;
   }
 }
 
-window.application = window.application || {};
-
 window.application = {
   difficulty: '',
-  timers: undefined,
   shuffleCards: [],
   userSelectedCards: [],
   finalTime: '',
