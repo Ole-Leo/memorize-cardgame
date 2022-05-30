@@ -1,17 +1,19 @@
 import { shuffle, isEqual, sortBy } from 'lodash';
 import { renderWinScreen } from './win-screen';
 
-export type CardsArray = {
+export type Card = {
   name: string;
   'front-img': string;
   'back-img': string;
-}[];
+};
+
+export type Cards = Card[];
 
 export function generatePairCards(
-  firstOfPairCard: CardsArray,
-  secondOfPairCard: CardsArray
+  firstOfPairCard: Cards,
+  secondOfPairCard: Cards
 ) {
-  const newArr: CardsArray = [...firstOfPairCard, ...secondOfPairCard];
+  const newArr: Cards = [...firstOfPairCard, ...secondOfPairCard];
   return shuffle(newArr.flat(Infinity));
 }
 

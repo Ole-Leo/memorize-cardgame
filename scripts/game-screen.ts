@@ -4,17 +4,14 @@ import { cards } from './cards-list';
 import { templateEngine } from './template-engine';
 import { renderStartScreen } from './start-screen';
 import {
-  CardsArray,
+  Cards,
+  Card,
   stopwatch,
   generatePairCards,
   matchForWin,
 } from './additional';
 
-function cardEngineTemplate(card: {
-  name: string;
-  'front-img'?: string;
-  'back-img'?: string;
-}) {
+function cardEngineTemplate(card: Card) {
   return {
     tag: 'article',
     cls: 'card',
@@ -44,15 +41,15 @@ function renderCardArea(container: HTMLElement) {
   const cardArea = document.createElement('div')!;
   cardArea.classList.add('cards-area');
 
-  const shuffledCards: CardsArray = shuffle(cards);
+  const shuffledCards: Cards = shuffle(cards);
 
-  const selectedCards: CardsArray = shuffledCards.slice(
+  const selectedCards: Cards = shuffledCards.slice(
     0,
     Number(window.application.difficulty) * 3
   );
 
-  const pairCards: CardsArray = generatePairCards(selectedCards, selectedCards);
-  const shuffledPairCards: CardsArray = shuffle(pairCards);
+  const pairCards: Cards = generatePairCards(selectedCards, selectedCards);
+  const shuffledPairCards: Cards = shuffle(pairCards);
 
   shuffledPairCards.forEach(card => {
     window.application.shuffleCards.push(card.name);

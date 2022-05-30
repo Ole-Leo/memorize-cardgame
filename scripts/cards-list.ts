@@ -1,8 +1,8 @@
-import { CardsArray } from './additional';
+import { Cards } from './additional';
 const cardImgPath: string = 'img/card-img/';
 const backsideCardImgPath: string = 'img/back-side-card.png';
 
-export const cards: CardsArray = [
+export const cards: Cards = [
   {
     name: '6_clubs',
     'front-img': cardImgPath + '6_clubs.png',

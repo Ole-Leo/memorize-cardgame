@@ -70,7 +70,7 @@ export function renderStartScreen() {
 
   app.appendChild(templateEngine(startFormEngine()));
 
-  const startForm: HTMLFormElement = document.querySelector('.start-form')!;
+  const startForm = document.querySelector('.start-form')!;
   const difficultyBtns: NodeListOf<HTMLButtonElement> =
     startForm.querySelectorAll('.form-button');
   const error: HTMLParagraphElement = startForm.querySelector('.error-text')!;
