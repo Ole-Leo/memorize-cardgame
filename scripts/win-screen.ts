@@ -1,4 +1,5 @@
-import { app } from '../index';
+import { app } from './start-screen';
+import { renderStartAgainBtn } from './game-screen';
 
 export function renderWinScreen() {
   const winForm = document.createElement('div');
@@ -23,11 +24,11 @@ export function renderWinScreen() {
   finalTime.classList.add('win-form__time');
   finalTime.textContent = window.application.finalTime;
 
-  winForm.appendChild(winImg);
-  winForm.appendChild(winText);
-  winForm.appendChild(timeText);
-  winForm.appendChild(finalTime);
-  window.application.renderBlock('startAgainBtn', winForm, 'Играть снова');
+  winForm.appendChild<HTMLImageElement>(winImg);
+  winForm.appendChild<HTMLHeadingElement>(winText);
+  winForm.appendChild<HTMLHeadingElement>(timeText);
+  winForm.appendChild<HTMLParagraphElement>(finalTime);
+  renderStartAgainBtn(winForm, 'Играть снова');
   app.appendChild(winForm);
   app.appendChild(overlay);
 }
