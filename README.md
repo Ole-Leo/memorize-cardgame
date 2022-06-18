@@ -36,4 +36,4 @@ npm run build
 
 ---
 
-Для самых ленивых можно запустить игру по ссылке ole-leo.github.io/skypro-cardgame :)
+Для самых ленивых можно запустить игру по [ссылке](https://memory-cardgame-leo.netlify.app/) :)
