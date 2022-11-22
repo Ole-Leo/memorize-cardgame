@@ -36,4 +36,4 @@ npm run build
 
 ---
 
-[Demo](https://memory-cardgame-leo.netlify.app/) :)
+[Demo](https://memory-cardgame-leo.netlify.app/)
