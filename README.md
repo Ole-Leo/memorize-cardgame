@@ -2,6 +2,8 @@
 
 ---
 
+[Demo](https://ole-leo.github.io/memorize-cardgame/)
+
 #### Описание игры
 
 Игра представляет собой набор из пар одинаковых карточек (6, 12 или 18). Суть игры очень простая: нужно запомнить и выбрать все пары карт.
@@ -35,5 +37,3 @@ npm run build
 Запустить live-server и voalá - можно начинать играть!
 
 ---
-
-[Demo](https://memory-cardgame-leo.netlify.app/)
