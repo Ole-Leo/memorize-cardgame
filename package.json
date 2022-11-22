@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/Ole-Leo/skyPro-cardgame/issues"
   },
-  "homepage": "https://github.com/Ole-Leo/skyPro-cardgame#readme",
+  "homepage": "https://ole-leo.github.io/memorize-cardgame/",
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "copy-webpack-plugin": "^10.2.4",
