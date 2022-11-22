@@ -22,4 +22,6 @@ window.application = {
   finalTime: '',
 };
 
+export const GAME = window.application;
+
 renderStartScreen();

@@ -1,15 +1,10 @@
-import { app } from './start-screen';
+import { GAME } from '..';
 import { shuffle } from 'lodash';
+import { app } from './start-screen';
 import { cards } from './cards-list';
-import { templateEngine } from './template-engine';
 import { renderStartScreen } from './start-screen';
-import {
-  Cards,
-  Card,
-  stopwatch,
-  generatePairCards,
-  matchForWin,
-} from './additional';
+import { templateEngine } from './template-engine';
+import { Card, stopwatch, generatePairCards, matchForWin } from './additional';
 
 function cardEngineTemplate(card: Card) {
   return {
@@ -38,38 +33,35 @@ function cardEngineTemplate(card: Card) {
 }
 
 function renderCardArea(container: HTMLElement) {
-  const cardArea = document.createElement('div')!;
+  const cardArea = document.createElement('div');
   cardArea.classList.add('cards-area');
 
-  const shuffledCards: Cards = shuffle(cards);
+  const shuffledCards = shuffle(cards);
 
-  const selectedCards: Cards = shuffledCards.slice(
-    0,
-    Number(window.application.difficulty) * 3
-  );
+  const selectedCards = shuffledCards.slice(0, Number(GAME.difficulty) * 3);
 
-  const pairCards: Cards = generatePairCards(selectedCards, selectedCards);
-  const shuffledPairCards: Cards = shuffle(pairCards);
+  const pairCards = generatePairCards(selectedCards, selectedCards);
+  const shuffledPairCards = shuffle(pairCards);
 
   shuffledPairCards.forEach(card => {
-    window.application.shuffleCards.push(card.name);
+    GAME.shuffleCards.push(card.name);
     cardArea.appendChild(templateEngine(cardEngineTemplate(card)));
   });
 
   container.appendChild(cardArea);
 }
 
-export function renderStartAgainBtn(container: HTMLElement, text: string) {
+function renderStartAgainBtn(container: HTMLElement, text: string) {
   const startAgainBtn = document.createElement('button');
   startAgainBtn.classList.add('start-button');
   startAgainBtn.textContent = text;
 
   startAgainBtn.addEventListener('click', () => {
-    window.clearInterval(window.application.timers);
-    window.application.finalTime = '';
-    window.application.difficulty = '';
-    window.application.shuffleCards = [];
-    window.application.userSelectedCards = [];
+    window.clearInterval(GAME.timers);
+    GAME.finalTime = '';
+    GAME.difficulty = '';
+    GAME.shuffleCards = [];
+    GAME.userSelectedCards = [];
     renderStartScreen();
   });
 
@@ -93,7 +85,7 @@ function renderGameHeader(container: HTMLElement) {
   container.appendChild(gameHeader);
 }
 
-export function renderGameScreen() {
+function renderGameScreen() {
   app.textContent = '';
   renderGameHeader(app);
   renderCardArea(app);
@@ -101,7 +93,7 @@ export function renderGameScreen() {
   const currentCards = document.querySelectorAll('.card');
   const frontFaceCards = document.querySelectorAll('.front-img');
   const backFaceCards = document.querySelectorAll('.back-img');
-  const timer: HTMLElement = document.querySelector('.timer')!;
+  const timer = <HTMLElement>document.querySelector('.timer');
 
   let hasFlippedCard: boolean = false;
   let firstCard: HTMLElement, secondCard: HTMLElement;
@@ -113,7 +105,7 @@ export function renderGameScreen() {
       frontFaceCard.classList.add('is-flipped');
     });
 
-    const target = event.currentTarget as HTMLElement;
+    const target = <HTMLElement>event.currentTarget;
     target.classList.toggle('is-flipped');
     if (!hasFlippedCard) {
       hasFlippedCard = true;
@@ -126,10 +118,7 @@ export function renderGameScreen() {
 
     checkForMatch();
 
-    matchForWin(
-      window.application.shuffleCards,
-      window.application.userSelectedCards
-    );
+    matchForWin(GAME.shuffleCards, GAME.userSelectedCards);
   }
 
   function checkForMatch() {
@@ -145,7 +134,7 @@ export function renderGameScreen() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
 
-    window.application.userSelectedCards.push(
+    GAME.userSelectedCards.push(
       String(firstCard.dataset.card),
       String(secondCard.dataset.card)
     );
@@ -168,3 +157,5 @@ export function renderGameScreen() {
     });
   }, 3000);
 }
+
+export { renderGameScreen, renderStartAgainBtn };

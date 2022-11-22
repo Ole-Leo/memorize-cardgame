@@ -1,7 +1,8 @@
+import { GAME } from '..';
 import { templateEngine } from './template-engine';
 import { renderGameScreen } from './game-screen';
 
-export const app: HTMLDivElement = document.querySelector('.app')!;
+const app = <HTMLDivElement>document.querySelector('.app');
 
 function startFormEngine() {
   return {
@@ -65,20 +66,20 @@ function startFormEngine() {
   };
 }
 
-export function renderStartScreen() {
+function renderStartScreen() {
   app.textContent = '';
 
   app.appendChild(templateEngine(startFormEngine()));
 
-  const startForm = document.querySelector('.start-form')!;
+  const startForm = <HTMLFormElement>document.querySelector('.start-form');
   const difficultyBtns: NodeListOf<HTMLButtonElement> =
     startForm.querySelectorAll('.form-button');
-  const error: HTMLParagraphElement = startForm.querySelector('.error-text')!;
+  const error = <HTMLParagraphElement>startForm.querySelector('.error-text');
 
   difficultyBtns.forEach(difficultyBtn => {
     difficultyBtn.addEventListener('click', event => {
-      const target = event.target as HTMLElement;
-      window.application.difficulty = String(target.dataset.lvl);
+      const target = <HTMLElement>event.target;
+      GAME.difficulty = String(target.dataset.lvl);
 
       difficultyBtns.forEach(difficultyBtn => {
         difficultyBtn.classList.remove('button-onclick');
@@ -89,7 +90,7 @@ export function renderStartScreen() {
 
   function startGame(event: Event) {
     event.preventDefault();
-    if (!window.application.difficulty) {
+    if (!GAME.difficulty) {
       error.classList.remove('hidden');
     } else {
       error.classList.add('hidden');
@@ -99,3 +100,5 @@ export function renderStartScreen() {
 
   startForm.addEventListener('submit', startGame);
 }
+
+export { renderStartScreen, app };

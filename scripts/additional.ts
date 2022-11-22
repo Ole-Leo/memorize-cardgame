@@ -1,23 +1,18 @@
-import { shuffle, isEqual, sortBy } from 'lodash';
 import { renderWinScreen } from './win-screen';
+import { shuffle, isEqual, sortBy } from 'lodash';
 
-export type Card = {
+type Card = {
   name: string;
   'front-img': string;
   'back-img': string;
 };
 
-export type Cards = Card[];
-
-export function generatePairCards(
-  firstOfPairCard: Cards,
-  secondOfPairCard: Cards
-) {
-  const newArr: Cards = [...firstOfPairCard, ...secondOfPairCard];
+function generatePairCards(firstOfPairCard: Card[], secondOfPairCard: Card[]) {
+  const newArr: Card[] = [...firstOfPairCard, ...secondOfPairCard];
   return shuffle(newArr.flat(Infinity));
 }
 
-export function matchForWin(shuffleCards: string[], userCards: string[]) {
+function matchForWin(shuffleCards: string[], userCards: string[]) {
   const isCardsEqual: boolean = isEqual(
     sortBy(shuffleCards),
     sortBy(userCards)
@@ -30,7 +25,7 @@ export function matchForWin(shuffleCards: string[], userCards: string[]) {
   }
 }
 
-export function stopwatch(element: HTMLElement) {
+function stopwatch(element: HTMLElement) {
   let sec = 0;
   let min = 0;
 
@@ -50,3 +45,5 @@ export function stopwatch(element: HTMLElement) {
   const interval = window.setInterval(changeTimeContent, 1000);
   window.application.timers = interval;
 }
+
+export { Card, generatePairCards, matchForWin, stopwatch };

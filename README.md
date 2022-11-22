@@ -1,4 +1,4 @@
-# SkyPro Memory сard-game
+# Memory Card-game
 
 ---
 
@@ -36,4 +36,4 @@ npm run build
 
 ---
 
-Для самых ленивых можно запустить игру по [ссылке](https://memory-cardgame-leo.netlify.app/) :)
+[Demo](https://memory-cardgame-leo.netlify.app/) :)

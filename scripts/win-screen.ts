@@ -1,7 +1,7 @@
 import { app } from './start-screen';
 import { renderStartAgainBtn } from './game-screen';
 
-export function renderWinScreen() {
+function renderWinScreen() {
   const winForm = document.createElement('div');
   winForm.classList.add('win-form');
 
@@ -32,3 +32,5 @@ export function renderWinScreen() {
   app.appendChild(winForm);
   app.appendChild(overlay);
 }
+
+export { renderWinScreen };

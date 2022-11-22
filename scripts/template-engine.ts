@@ -1,4 +1,4 @@
-export function templateEngine(node) {
+function templateEngine(node: any) {
   if (node === undefined || node === null || node === false) {
     return document.createTextNode('');
   }
@@ -38,3 +38,5 @@ export function templateEngine(node) {
 
   return unit;
 }
+
+export { templateEngine };
